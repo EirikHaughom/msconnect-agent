@@ -122,6 +122,44 @@ It automatically detects your role family from your job title and adjusts search
 
 The agent detects your country from your role profile and includes locale-specific praise keywords (Norwegian, German, French, Spanish, Japanese, etc.) to ensure feedback in local languages isn't missed.
 
+## Troubleshooting
+
+### WorkIQ not responding or returning errors
+
+The agent relies on WorkIQ to query your M365 data. If it's not working, test it directly in Copilot Chat **without** selecting any agent:
+
+> _"What's on my calendar tomorrow?"_
+
+If this returns your calendar, WorkIQ is working. If not:
+
+- **EULA not accepted** — WorkIQ requires a one-time EULA acceptance. Ask Copilot: _"Accept the WorkIQ EULA"_ and follow the prompts.
+- **Node.js not installed** — WorkIQ runs via `npx`. Verify Node.js is installed: `node --version` (requires ≥ 18).
+- **MCP server not started** — In VS Code, open the Command Palette and run `MCP: List Servers` to check if `workiq` is listed and running. If not, try reloading the window (`Developer: Reload Window`).
+- **Authentication expired** — WorkIQ authenticates through your Microsoft 365 account. If your session expired, close and reopen VS Code or the CLI to re-authenticate.
+
+### GitHub MCP not connecting
+
+Test the GitHub MCP server by asking Copilot Chat (without an agent selected):
+
+> _"List my recent GitHub pull requests"_
+
+If this fails:
+
+- **Not signed in to Copilot** — Ensure you're signed in to GitHub Copilot in VS Code or the CLI.
+- **MCP server not listed** — Check `MCP: List Servers` in VS Code. The `github` server should appear and show as connected.
+
+### Agent not appearing in the dropdown
+
+- Make sure you opened the **msconnect-agent** project folder (not a parent or different folder) — the agent is discovered from `.github/agents/`.
+- In VS Code, try reloading the window (`Developer: Reload Window`).
+- In the CLI, ensure you're running from the repo root directory.
+
+### Evidence searches returning empty results
+
+- **Lookback period too narrow** — Try a wider date range. Some M365 data has retention limits.
+- **Search terms too specific** — The agent searches month-by-month with targeted queries. If a topic yields nothing, provide alternative keywords or project names when prompted.
+- **Data not in M365** — Some evidence lives in systems WorkIQ can't access (MSX, Seismic, Power BI, etc.). The agent will prompt you to provide this data manually.
+
 ## Contributing
 
 Contributions are welcome! Areas where help is appreciated:
