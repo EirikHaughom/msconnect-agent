@@ -1,17 +1,27 @@
 # MS Connect Assistant
 
-A GitHub Copilot agent that helps Microsoft employees prepare their **Connect performance review** by exhaustively gathering evidence and positive feedback from Microsoft 365 and GitHub data, mapping it to core priorities and role accountabilities, and producing paste-ready Connect form text.
+A GitHub Copilot agent that helps Microsoft employees with two workflows:
+
+- **Connect** — Prepare your own performance review by gathering evidence from M365 and GitHub data, mapping it to your core priorities and role accountabilities, and producing paste-ready Connect form text.
+- **Perspectives** — Draft structured feedback for a colleague using the Microsoft Perspectives tool, grounded in evidence of your shared interactions.
 
 ## What It Does
 
-The agent walks you through a structured, multi-phase workflow:
+### Connect Workflow
 
 1. **Setup** — Looks up your role, confirms your core priorities, and sets the review period
 2. **Evidence Gathering** — Searches M365 (emails, Teams, meetings, documents) and GitHub for work evidence, positive feedback, recognition, and developmental signals
 3. **Compile** — Consolidates, deduplicates, and maps evidence to your priorities and role accountabilities, then presents a curated evidence pack for your review
 4. **Draft** — Produces paste-ready text for Connect form fields (results, setbacks, goals, actions) with enforced character limits
 
-See the full [workflow diagram](WORKFLOW.md) for a detailed step-by-step flowchart.
+### Perspectives Workflow
+
+1. **Identify Colleague** — Resolve who you're writing feedback for
+2. **Gather Interactions** — Search M365 for shared meetings, emails, Teams chats, and collaborative work (only interactions you were part of)
+3. **Confirm Themes** — Review observed strengths and growth areas before any drafting begins — you control what goes in
+4. **Draft & Refine** — Produce paste-ready text for all 6 Perspective fields (keep doing, leverage strength, re-think, alternative approach, most valued, additional thoughts)
+
+See the full [workflow diagrams](WORKFLOW.md) for detailed step-by-step flowcharts.
 
 ## Prerequisites
 
@@ -53,7 +63,9 @@ Or provide more context up front:
 
 ### What the Agent Will Ask You
 
-The agent uses structured interactive prompts at key decision points:
+The agent first asks which workflow you need (Connect or Perspectives), then guides you through the relevant steps.
+
+#### Connect
 
 | Step | What It Asks |
 |------|-------------|
@@ -64,6 +76,15 @@ The agent uses structured interactive prompts at key decision points:
 | **External Sources** | Links, metrics, or evidence from systems the agent can't search |
 | **GitHub Repos** | Whether to include GitHub contributions and which repos |
 | **Evidence Curation** | Review and approve the selected evidence before drafting |
+
+#### Perspectives
+
+| Step | What It Asks |
+|------|-------------|
+| **Colleague** | Name, email, or alias of the person you're providing feedback for |
+| **Timeframe & Focus** | How far back to look and any specific projects or topics to focus on |
+| **Confirm Themes** | Review and approve observed strengths and growth areas before drafting |
+| **Review Draft** | Refine each of the 6 Perspective fields until you're satisfied |
 
 ### Output
 
@@ -87,13 +108,14 @@ The agent produces files in an output folder (e.g., `FY26H2/output/`):
 ```
 .github/
 ├── agents/
-│   └── msconnect.agent.md        # Main agent definition
+│   └── msconnect.agent.md        # Main agent definition (Connect + Perspectives)
 └── skills/
     ├── connect-writer/SKILL.md   # Drafts paste-ready Connect form text
     ├── find-feedback/SKILL.md    # Finds positive feedback across M365
     ├── github-evidence-search/SKILL.md  # Gathers GitHub contributions
-    ├── humanizer/SKILL.md        # Tone and voice enforcement
+    ├── humanizer/SKILL.md        # Tone enforcement for Connect drafts
     ├── m365-evidence-search/SKILL.md    # Multi-pass M365 evidence search
+    ├── perspective-writer/SKILL.md      # Drafts Perspectives feedback for a colleague
     └── role-lookup/SKILL.md      # Looks up role info from WorkIQ
 .mcp.json                        # MCP server configuration
 .gitignore                       # Excludes .temp/ (personal data)
@@ -102,6 +124,7 @@ The agent produces files in an output folder (e.g., `FY26H2/output/`):
 ## Privacy and Security
 
 - The agent only searches **your own** M365 data (emails you sent/received, meetings you attended, etc.)
+- **Perspectives workflow:** only searches interactions you were part of — never the colleague's private work
 - All evidence stays local — nothing is sent to external services beyond the MCP integrations
 - The `.temp/` directory is gitignored and should be used for personal files (core priorities, previous Connects, etc.)
 - **Never commit personal performance data** to this repository

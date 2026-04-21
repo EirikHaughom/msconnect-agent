@@ -1,5 +1,16 @@
 # Workflow
 
+## Workflow Selection
+
+```mermaid
+flowchart LR
+    Start([Start]) --> Choice{What do you\nneed help with?}
+    Choice -->|Connect| C[Connect Workflow]
+    Choice -->|Perspectives| P[Perspectives Workflow]
+```
+
+## Connect Workflow
+
 ```mermaid
 flowchart TB
     Start([Start]) --> R
@@ -56,4 +67,45 @@ flowchart TB
     AB --> Done([Done])
 
     style BRIDGE fill:none,stroke:none
+```
+
+## Perspectives Workflow
+
+```mermaid
+flowchart TB
+    Start([Start]) --> ID
+
+    subgraph S1[Step 1 — Setup]
+        direction LR
+        ID[Identify\ncolleague] --> CTX[Set timeframe\n& focus areas]
+    end
+
+    CTX --> SEARCH
+
+    subgraph S2[Step 2 — Gather Interactions]
+        direction LR
+        SEARCH[Search shared\nmeetings] --> EMAIL[Search shared\nemail threads]
+        EMAIL --> TEAMS[Search shared\nTeams chats]
+        TEAMS --> DOCS[Search shared\ndocuments]
+    end
+
+    DOCS --> STR
+
+    subgraph S3[Step 3 — Confirm Themes]
+        direction LR
+        STR[Present observed\nstrengths] --> GRW[Present potential\ngrowth areas]
+        GRW --> CONF{User confirms\nthemes}
+        CONF -->|Adjust| STR
+    end
+
+    CONF -->|Approved| DRAFT
+
+    subgraph S4[Step 4 — Draft & Refine]
+        direction LR
+        DRAFT[Draft 6\nPerspective fields] --> REVIEW{User\nreviews}
+        REVIEW -->|Revise| DRAFT
+        REVIEW -->|Approve| FINAL[Generate\nperspective file]
+    end
+
+    FINAL --> Done([Done])
 ```
