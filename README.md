@@ -17,8 +17,29 @@ The agent walks you through a structured, multi-phase workflow:
 |-------------|---------|
 | [GitHub Copilot](https://github.com/features/copilot) with **Copilot Chat** | The agent runs inside Copilot Chat (VS Code or CLI) |
 | [Node.js](https://nodejs.org/) ≥ 18 | Required by the WorkIQ MCP server (`npx`) |
+| [WorkIQ](https://github.com/microsoft/work-iq) | MCP server that connects Copilot to your Microsoft 365 data |
 | Microsoft 365 account (work) | The agent queries your M365 data via WorkIQ |
 | GitHub account | Optional — for gathering GitHub contribution evidence |
+
+### Installing WorkIQ
+
+WorkIQ is the MCP server that gives the agent access to your emails, meetings, Teams messages, and documents. This repo's `.mcp.json` runs it automatically via `npx`, but you can also install it explicitly:
+
+```bash
+# Option A: Let npx handle it (no install needed — this is what .mcp.json does)
+npx -y @microsoft/workiq mcp
+
+# Option B: Install globally
+npm install -g @microsoft/workiq
+```
+
+On first use, you'll need to accept the EULA:
+
+```bash
+workiq accept-eula
+```
+
+> ⚠️ **Tenant admin consent required:** WorkIQ needs permissions to access Microsoft 365 data. On first access, a consent dialog appears. If you're not a tenant admin, ask your admin to grant consent — see the [Tenant Administrator Enablement Guide](https://github.com/microsoft/work-iq/blob/main/ADMIN-INSTRUCTIONS.md) for details.
 
 ## Getting Started
 
@@ -31,7 +52,7 @@ cd msconnect-agent
 
 ### 2. Open Copilot Chat
 
-Open the project in **VS Code** and start **Copilot Chat**, or use the **GitHub Copilot CLI** from the project directory. MCP servers (WorkIQ and GitHub) start and authenticate automatically — on first run you'll be prompted to accept the [WorkIQ EULA](https://github.com/microsoft/work-iq-mcp).
+Open the project in **VS Code** and start **Copilot Chat**, or use the **GitHub Copilot CLI** from the project directory. MCP servers (WorkIQ and GitHub) start and authenticate automatically — on first run you'll be prompted to accept the [WorkIQ EULA](https://github.com/microsoft/work-iq).
 
 ### 3. Select the agent
 
