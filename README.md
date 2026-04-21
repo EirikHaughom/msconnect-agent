@@ -14,10 +14,11 @@ The agent walks you through a structured, multi-phase workflow:
 ### Workflow
 
 ```mermaid
-flowchart TD
-    Start([Start]) --> P1
+flowchart LR
+    Start([Start]) --> R
 
     subgraph P1[Phase 1 — Setup]
+        direction TB
         R[Look up role & level] --> RP[Detect role family & locale]
         RP --> CP{Previous Connect\nor priorities only?}
         CP -->|Full Connect| FC[Extract priorities +\nprior results, setbacks, goals]
@@ -31,6 +32,7 @@ flowchart TD
     CTX --> WE
 
     subgraph P2[Phase 2 — Evidence Gathering]
+        direction TB
         WE[Work evidence\nm365-evidence-search] --> FB[Positive feedback\nfind-feedback]
         FB --> SQA[Security, Quality\n& AI contributions]
         SQA --> DEV[Developmental feedback\n& setbacks]
@@ -42,6 +44,7 @@ flowchart TD
     end
 
     subgraph P3[Phase 3 — Compile & Draft]
+        direction TB
         CON[Consolidate &\ndeduplicate] --> MAP[Map to priorities\n& role accountabilities]
         MAP --> EP[Generate evidence pack]
         EP --> CUR[User curation gate:\nreview & approve]
@@ -55,6 +58,7 @@ flowchart TD
     FIN --> P4{Help with\nfuture goals?}
 
     subgraph P4s[Phase 4 — Plan Future]
+        direction TB
         GP[Draft new\ncore priorities] --> AB[Draft actions\n& behaviors]
     end
 
