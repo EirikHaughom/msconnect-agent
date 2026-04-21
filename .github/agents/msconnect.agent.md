@@ -489,6 +489,7 @@ _Target: all bullets together fit within 6000 characters when finalized for Conn
 List the specific metrics, examples, names, or context that would most strengthen the final Connect. Be actionable — tell the user exactly what to look up or ask for.
 
 Include:
+- **Unquantified evidence** — items where the user was asked for metrics (Step 4 of User Curation Gate) but couldn't provide them. For each, suggest where to find the number (e.g., "Check MSX for the Contoso pipeline value", "Pull Seismic analytics for the hero deck views")
 - Missing Security/Quality/AI evidence if not found
 - GitHub contributions if not yet gathered
 - Setbacks if user input is needed
@@ -548,6 +549,32 @@ Use an interactive prompt to ask the user:
 If the user adds new items, incorporate them at the appropriate confidence level (user-provided = highest precedence). If the user swaps items, update the selection and re-validate coverage requirements (core priorities, Security/Quality/AI, culture).
 
 **Do not proceed to the connect-writer skill until the user confirms the selection.**
+
+#### Step 4: Prompt for Missing Metrics
+
+After the user confirms the evidence selection, review every selected item for quantifiable metrics. For any item that lacks a concrete number (revenue, ACR, pipeline, customer count, adoption %, views, etc.), **proactively ask the user** using an interactive prompt.
+
+Derive suggested metric types from:
+- **Core priority KPIs** — if the priority defines success criteria with specific measures (e.g., ">150 combined views", "≥2 joint development opportunities"), ask for the actual numbers achieved
+- **Role family metrics** — use the "Quantify with" list from Step 1b (e.g., ACR, pipeline $, deals closed, features shipped)
+- **Common business metrics** — revenue influenced, cost saved, time reduced, users impacted, sessions delivered, attendees reached
+
+Present the ask as a grouped list so the user can fill in what they know:
+
+> _"Some evidence items don't have metrics yet. Can you provide numbers for any of these? Skip any you don't have — I'll note them as unquantified."_
+>
+> | # | Evidence Item | Suggested Metric | Your Value |
+> |---|--------------|-----------------|------------|
+> | 1 | [Project/accomplishment] | [e.g., Pipeline generated ($)] | _fill in_ |
+> | 2 | [Project/accomplishment] | [e.g., ACR influenced ($)] | _fill in_ |
+> | ...| | | |
+
+For each metric the user provides:
+- Incorporate at **Strong** confidence (user-provided = first-person source of truth)
+- Cite the source as "User-provided" in the evidence trail
+- Update the Metrics and Proof Points Table (Section 5)
+
+If the user skips a metric, leave the item as-is and flag it in Missing Inputs (Section 8) with a specific suggestion of where to find the number (e.g., "Check MSX for pipeline value" or "Look up Seismic views for the hero deck").
 
 ### Drafting Connect Form Text
 
