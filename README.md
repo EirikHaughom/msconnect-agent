@@ -23,26 +23,6 @@ See the full [workflow diagram](WORKFLOW.md) for a detailed step-by-step flowcha
 | Microsoft 365 account (work) | The agent queries your M365 data via WorkIQ |
 | GitHub account | Optional — for gathering GitHub contribution evidence |
 
-### Installing WorkIQ
-
-WorkIQ is the MCP server that gives the agent access to your emails, meetings, Teams messages, and documents. This repo's `.mcp.json` runs it automatically via `npx`, but you can also install it explicitly:
-
-```bash
-# Option A: Let npx handle it (no install needed — this is what .mcp.json does)
-npx -y @microsoft/workiq mcp
-
-# Option B: Install globally
-npm install -g @microsoft/workiq
-```
-
-On first use, you'll need to accept the EULA:
-
-```bash
-workiq accept-eula
-```
-
-> ⚠️ **Tenant admin consent required:** WorkIQ needs permissions to access Microsoft 365 data. On first access, a consent dialog appears. If you're not a tenant admin, ask your admin to grant consent — see the [Tenant Administrator Enablement Guide](https://github.com/microsoft/work-iq/blob/main/ADMIN-INSTRUCTIONS.md) for details.
-
 ## Getting Started
 
 ### 1. Clone the repository
