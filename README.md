@@ -20,67 +20,33 @@ The agent walks you through a structured, multi-phase workflow:
 | Microsoft 365 account (work) | The agent queries your M365 data via WorkIQ |
 | GitHub account | Optional — for gathering GitHub contribution evidence |
 
-## Setup
+## Getting Started
 
-### 1. Clone the Repository
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/EirikHaughom/msconnect-agent.git
 cd msconnect-agent
 ```
 
-### 2. Configure MCP Servers
+### 2. Open Copilot Chat
 
-The repository includes a `.mcp.json` that configures two MCP servers:
+Open the project in **VS Code** and start **Copilot Chat**, or use the **GitHub Copilot CLI** from the project directory. MCP servers (WorkIQ and GitHub) start and authenticate automatically — on first run you'll be prompted to accept the [WorkIQ EULA](https://github.com/microsoft/work-iq-mcp).
 
-- **WorkIQ** — Queries Microsoft 365 Copilot for emails, meetings, Teams messages, documents, and people data
-- **GitHub** — Accesses GitHub repositories, PRs, commits, issues, and code reviews
+### 3. Select the agent
 
-The `.mcp.json` is pre-configured — no manual edits needed:
+- **VS Code:** Pick **MS Connect Assistant** from the agent dropdown in the Chat panel
+- **CLI:** Type `/agent MS Connect Assistant`
 
-```json
-{
-  "inputs": [],
-  "servers": {
-    "workiq": {
-      "command": "npx",
-      "args": ["-y", "@microsoft/workiq@latest", "mcp"],
-      "tools": ["*"]
-    },
-    "github": {
-      "type": "http",
-      "url": "https://api.githubcopilot.com/mcp/"
-    }
-  }
-}
-```
+### 4. Ask your question
 
-### 3. Start the MCP Servers
+Start simple:
 
-When you open this project in VS Code with Copilot Chat, the MCP servers start automatically. On first run:
-
-1. **WorkIQ** will install via `npx` and prompt you to accept the [EULA](https://github.com/microsoft/work-iq-mcp). You must accept before it can query your M365 data.
-2. **GitHub MCP** connects automatically through your Copilot authentication.
-
-> **Tip:** You can verify MCP server status in VS Code by opening the **MCP Servers** panel (click the `{}` icon in the Copilot Chat toolbar, or run `MCP: List Servers` from the Command Palette).
-
-### 4. Accept the WorkIQ EULA
-
-The first time WorkIQ is used, you'll be prompted to accept the EULA. The agent will handle this automatically, but you can also accept it manually:
-
-> In Copilot Chat, type: _"Accept the WorkIQ EULA"_
-
-## Usage
-
-### Starting the Agent
-
-Open this project in VS Code, then in **Copilot Chat**, invoke the agent:
-
-> `@MS Connect Assistant` — _"Help me prepare my Connect for FY26H2"_
+> _"Help me prepare my Connect for FY26H2"_
 
 Or provide more context up front:
 
-> `@MS Connect Assistant` — _"Prepare my Connect for FY26H2. My core priorities are in .temp/corepriorities.md. Include GitHub contributions from the msconnect-agent repo."_
+> _"Prepare my Connect for FY26H2. My core priorities are in .temp/corepriorities.md. Include GitHub contributions from the msconnect-agent repo."_
 
 ### What the Agent Will Ask You
 
