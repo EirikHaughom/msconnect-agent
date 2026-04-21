@@ -35,9 +35,8 @@ Use `ask_user` with a structured schema whenever you need the user to:
 
 ### Key decision points that MUST use interactive prompts
 
-1. **Step 2** — How will the user provide core priorities? (pasted HTML / plain text / file / manual)
-2. **Step 2b** — Does the user have a previous Connect? (save HTML / paste text / file / skip)
-3. **Step 3** — Confirm the lookback period (if not auto-derived)
+1. **Step 2** — How will the user provide input? (full previous Connect / core priorities only)
+2. **Step 3** — Confirm the lookback period (if not auto-derived)
 4. **Step 5 Part A** — Additional context and guidance (free-text input)
 5. **Step 5 Part B** — External sources and manual evidence (free-text input)
 6. **GitHub Evidence** — Include GitHub contributions? (yes with repos / no)
@@ -204,28 +203,19 @@ After identifying the role family:
 2. **Prioritize role-relevant metrics** — use the "Quantify with" list to identify which metrics to search for and highlight in the Metrics and Proof Points Table.
 3. **Frame impact appropriately** — use the role family's impact priorities when evaluating what counts as "high impact" for this user. A sales role's top impact is revenue; an engineering role's top impact is features shipped and reliability.
 
-### Step 2: Identify Core Priorities
+### Step 2: Provide Core Priorities or Previous Connect
 
-Ask the user for their current core priorities. Accept any of these formats:
+The user's core priorities are the foundation for evidence gathering. They can be provided standalone or as part of a full previous Connect (which also contains them). Ask the user which approach they prefer:
 
-- **Pasted HTML** from the MS Connect website — parse and extract priority titles, descriptions, and success criteria
-- **Pasted plain text** — extract the structured priorities
-- **File reference** — read the file the user points to (e.g. `FY26H2/input/corepriorities.md`)
-- **Manual entry** — let the user type priorities one by one
+> _"I need your core priorities to know what evidence to search for. How would you like to provide them?_
+> 1. _**Full previous Connect** — save the HTML page from the Connect website (Ctrl+S) or copy-paste the text. I'll extract your core priorities AND use the prior results, setbacks, and goals to show progression and avoid repetition._
+> 2. _**Core priorities only** — paste, point me to a file (e.g. `.temp/corepriorities.md`), or type them manually. I'll skip the prior Connect context."_
 
-Present the extracted priorities back as a numbered list with title and key success criteria for each. Ask the user to confirm before proceeding.
+#### Option 1: Full Previous Connect
 
-### Step 2b: Import Previous Connect (Optional)
+Accept in any format: saved HTML file, pasted HTML, pasted plain text, or file reference. Extract:
 
-The user's previous Connect provides valuable context: what was already claimed, what tone and detail level worked, and where to show growth or progression. Since the Connect website is not accessible via WorkIQ, ask the user to provide their prior Connect content.
-
-Ask: _"Do you have your previous Connect available? If so, you can share it by:_
-1. _Saving the HTML page from the Connect website (Ctrl+S or right-click → Save As) and pointing me to the file_
-2. _Copy-pasting the text directly from the Connect website_
-3. _Pointing me to a file where you've saved it (e.g. `FY26H1/input/previous-connect.md`)_
-4. _Or skip this step — I can proceed without it."_
-
-If the user provides a previous Connect, extract:
+- **Core priorities** — priority titles, descriptions, and success criteria (used as the primary input for evidence gathering)
 - **Prior results section** — what was claimed last time (to avoid repeating the same stories)
 - **Prior setbacks** — what growth areas were identified (to show progression)
 - **Prior goals** — what was planned (to show delivery against commitments)
@@ -236,6 +226,20 @@ Use the previous Connect to:
 - **Avoid repetition:** flag any current evidence that overlaps substantially with prior claims
 - **Demonstrate growth:** link current strengths to prior setback areas where possible
 - **Calibrate scope:** match the ambition level and specificity the user used before
+
+#### Option 2: Core Priorities Only
+
+Accept in any format:
+- **Pasted HTML** from the MS Connect website — parse and extract priority titles, descriptions, and success criteria
+- **Pasted plain text** — extract the structured priorities
+- **File reference** — read the file the user points to (e.g. `.temp/corepriorities.md`)
+- **Manual entry** — let the user type priorities one by one
+
+No prior Connect context will be available — the agent will not flag overlaps, show progression from prior goals, or calibrate tone from previous submissions.
+
+#### Confirm Priorities
+
+Regardless of which option the user chose, present the extracted priorities back as a numbered list with title and key success criteria for each. Ask the user to confirm before proceeding.
 
 ### Step 3: Set Lookback Period
 
@@ -407,7 +411,7 @@ Some accomplishments naturally span multiple core priorities (e.g., a partner co
 
 #### Previous Connect Comparison
 
-If a previous Connect was provided in Step 2b:
+If a full previous Connect was provided in Step 2:
 
 - **Flag overlaps:** identify any current evidence that substantially repeats a claim from the previous Connect. Mark these as `[Carried forward]` — the user should decide whether to include them again or replace with fresher examples.
 - **Show progression:** for prior goals that now have delivery evidence, explicitly note the link ("Committed to X in FY26H1 → delivered Y in FY26H2").
@@ -608,7 +612,7 @@ Using the confirmed core priorities from Step 2 and the evidence pack:
 - Identify which priorities had strong delivery and should continue or expand in scope
 - Identify which priorities had gaps or thin evidence — suggest whether to double down, refine, or replace
 - Suggest new priorities based on emerging themes from the evidence (e.g., a new partner opportunity, a growing customer segment, a capability gap)
-- If a previous Connect was provided (Step 2b), use the prior goals to show natural progression
+- If a full previous Connect was provided (Step 2), use the prior goals to show natural progression
 
 Present the suggested evolution as a comparison:
 

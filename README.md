@@ -55,8 +55,7 @@ The agent uses structured interactive prompts at key decision points:
 | Step | What It Asks |
 |------|-------------|
 | **Role** | Confirms your job title, level, and role description |
-| **Core Priorities** | How you want to provide them (paste, file, manual entry) |
-| **Previous Connect** | Whether you have a prior Connect to import for context |
+| **Core Priorities / Previous Connect** | How you want to provide them (full previous Connect or core priorities only) |
 | **Lookback Period** | Which Connect period you're preparing for (e.g., FY26H2) |
 | **Additional Context** | Key projects, manager guidance, or emphasis areas |
 | **External Sources** | Links, metrics, or evidence from systems the agent can't search |
