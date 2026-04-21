@@ -11,6 +11,58 @@ The agent walks you through a structured, multi-phase workflow:
 3. **Compile** — Consolidates, deduplicates, and maps evidence to your priorities and role accountabilities, then presents a curated evidence pack for your review
 4. **Draft** — Produces paste-ready text for Connect form fields (results, setbacks, goals, actions) with enforced character limits
 
+### Workflow
+
+```mermaid
+flowchart TD
+    Start([Start]) --> P1
+
+    subgraph P1[Phase 1 — Setup]
+        R[Look up role & level] --> RP[Detect role family & locale]
+        RP --> CP{Previous Connect\nor priorities only?}
+        CP -->|Full Connect| FC[Extract priorities +\nprior results, setbacks, goals]
+        CP -->|Priorities only| PO[Extract core priorities]
+        FC --> Confirm[Confirm priorities]
+        PO --> Confirm
+        Confirm --> LB[Set lookback period]
+        LB --> CTX[Gather additional context\n& external sources]
+    end
+
+    CTX --> P2
+
+    subgraph P2[Phase 2 — Evidence Gathering]
+        WE[Work evidence\nm365-evidence-search] --> FB[Positive feedback\nfind-feedback]
+        FB --> SQA[Security, Quality\n& AI contributions]
+        SQA --> DEV[Developmental feedback\n& setbacks]
+        DEV --> MGR[Manager feedback\n& 1:1 context]
+        MGR --> GH{Include GitHub?}
+        GH -->|Yes| GHS[GitHub contributions\ngithub-evidence-search]
+        GH -->|No| P3
+        GHS --> P3
+    end
+
+    subgraph P3[Phase 3 — Compile]
+        CON[Consolidate &\ndeduplicate] --> MAP[Map to priorities\n& role accountabilities]
+        MAP --> EP[Generate evidence pack]
+        EP --> CUR[User curation gate:\nreview & approve]
+        CUR --> MET[Prompt for\nmissing metrics]
+        MET --> DFT[Draft Connect text\nconnect-writer + humanizer]
+        DFT --> REV[User reviews draft]
+        REV -->|Revise| DFT
+        REV -->|Approve| FIN[Generate\nconnect-final.md]
+    end
+
+    FIN --> P4{Help with\nfuture goals?}
+
+    subgraph P4[Phase 4 — Plan Future]
+        GP[Draft new\ncore priorities] --> AB[Draft actions\n& behaviors]
+    end
+
+    P4 -->|Yes| GP
+    P4 -->|Skip| Done
+    AB --> Done([Done])
+```
+
 ## Prerequisites
 
 | Requirement | Purpose |
