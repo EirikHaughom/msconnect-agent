@@ -28,7 +28,7 @@ flowchart TD
         LB --> CTX[Gather additional context\n& external sources]
     end
 
-    CTX --> P2
+    CTX --> WE
 
     subgraph P2[Phase 2 — Evidence Gathering]
         WE[Work evidence\nm365-evidence-search] --> FB[Positive feedback\nfind-feedback]
@@ -37,11 +37,11 @@ flowchart TD
         DEV --> MGR[Manager feedback\n& 1:1 context]
         MGR --> GH{Include GitHub?}
         GH -->|Yes| GHS[GitHub contributions\ngithub-evidence-search]
-        GH -->|No| P3
-        GHS --> P3
+        GH -->|No| CON
+        GHS --> CON
     end
 
-    subgraph P3[Phase 3 — Compile]
+    subgraph P3[Phase 3 — Compile & Draft]
         CON[Consolidate &\ndeduplicate] --> MAP[Map to priorities\n& role accountabilities]
         MAP --> EP[Generate evidence pack]
         EP --> CUR[User curation gate:\nreview & approve]
@@ -54,7 +54,7 @@ flowchart TD
 
     FIN --> P4{Help with\nfuture goals?}
 
-    subgraph P4[Phase 4 — Plan Future]
+    subgraph P4s[Phase 4 — Plan Future]
         GP[Draft new\ncore priorities] --> AB[Draft actions\n& behaviors]
     end
 
