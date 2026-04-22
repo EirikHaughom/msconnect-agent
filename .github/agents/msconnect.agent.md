@@ -902,33 +902,49 @@ For each interaction, note:
 
 ### STEP 4 — PRESENT THEMES FOR USER CONFIRMATION
 
-Before drafting anything, present the observed themes to the user in two groups:
+Before drafting anything, present the observed themes to the user organized by the three Perspective sections. Use **structured interactive prompts** (`ask_user` with multi-select) for each section so the user can select exactly which themes to include.
 
-**Observed strengths:**
-```
-1. [Theme] — [brief supporting evidence, 1 line]
-2. [Theme] — [brief supporting evidence, 1 line]
-...
-```
+#### Section 1: Keep doing...
 
-**Potential growth areas:**
-```
-1. [Theme] — [brief supporting evidence, 1 line]
-2. [Theme] — [brief supporting evidence, 1 line]
-...
-```
+Present observed strengths and ask the user to select which to include:
 
-Then ask using an interactive prompt:
+> _"Here are the strengths I observed from your interactions with [colleague]. Select which ones to include in the 'Keep doing' section (you can also add your own):"_
 
-> _"Here's what I found from your interactions with [colleague]. Before I draft the Perspective:_
->
-> **Strengths:** Do these ring true? Would you like to adjust, add, or remove any?
->
-> **Growth areas:** ⚠️ These are suggestions based on limited evidence. Please confirm which (if any) feel **fair and appropriate** to include. I will NOT draft 'Re-think' content for any theme you don't explicitly confirm.
->
-> _You can also add your own observations that I may have missed."_
+Use a multi-select interactive prompt with the observed strengths as options. Each option should include the theme and a brief evidence summary.
 
-**Mandatory gate:** Do NOT proceed to drafting "Re-think" or "Alternative approach" fields until the user explicitly confirms at least one growth-area theme. If the user has no growth areas to share, draft those fields with a placeholder and a note that the user should fill them in directly.
+The user's selections determine:
+- **"Here's something I think you do really well..."** — the primary selected strength
+- **"Here's a suggestion for how you could leverage this strength further..."** — a forward-looking suggestion based on the selected strength
+
+#### Section 2: Re-think...
+
+Present potential growth areas and ask the user to confirm which (if any) are fair to include:
+
+> _"Here are potential growth areas I observed. ⚠️ These are based on limited evidence — please select ONLY the ones you feel are **fair and appropriate** to include in the 'Re-think' section:"_
+
+Use a multi-select interactive prompt. Each option should include the theme and a brief evidence summary.
+
+**Mandatory gate:** Do NOT draft "Re-think" or "Alternative approach" content for any theme the user does not explicitly select. If the user selects none, draft those fields with a placeholder and a note that the user should fill them in directly.
+
+The user's selections determine:
+- **"Here's something you may want to re-think..."** — the selected growth area
+- **"Here's an example to consider for doing it another way..."** — a practical alternative based on the selected theme
+
+#### Section 3: Additional thoughts...
+
+Present remaining observations that could fit the "Additional thoughts" section — things the user values about the working relationship, broader encouragement, or cross-cutting themes that didn't fit neatly into strengths or growth areas:
+
+> _"Here are some other observations that could go into 'Additional thoughts'. Select which to include:"_
+
+Use a multi-select interactive prompt. Each option should include the observation and context.
+
+The user's selections determine:
+- **"The thing I most value about working with you is..."** — what the user values most
+- **"Here are some other thoughts..."** — any additional observations
+
+#### Adding Custom Themes
+
+In each section prompt, include an option for the user to add their own observations. User-provided themes take highest precedence over agent-discovered themes.
 
 ### STEP 5 — DRAFT THE PERSPECTIVE
 
