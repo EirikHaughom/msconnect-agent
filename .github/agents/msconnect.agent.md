@@ -339,6 +339,8 @@ Store all user-provided context and reference it during the Compile phase to ens
 
 ## PHASE 2 — EVIDENCE GATHERING
 
+> **Retrieve neutrally, assess afterward.** All WorkIQ queries in this phase should ask for **factual interaction summaries** — what happened, who was involved, what was discussed, what was decided. Do NOT ask WorkIQ to evaluate quality, judge impact, or identify strengths. WorkIQ returns better data with neutral, descriptive queries. All impact assessment, theme identification, and framing happens **after retrieval** by the agent.
+
 ### Work Evidence
 
 Use the **`m365-evidence-search`** skill (`.github/skills/m365-evidence-search/SKILL.md`) to gather work evidence.
@@ -346,6 +348,7 @@ Use the **`m365-evidence-search`** skill (`.github/skills/m365-evidence-search/S
 - **Search axis:** priority-by-priority. For each confirmed core priority, run the skill's multi-pass search.
 - **Time axis:** month-by-month within the lookback period. WorkIQ is not reliable for large-scale aggregations — issue separate calls for each month to ensure data consistency and avoid recency bias.
 - **Search terms:** extract customer names, partner names, project names, internal programs, and topics from the confirmed core priorities. **Augment with role-dependent keywords** from Step 1b — include the acronyms and metric types relevant to the user's role family.
+- **Query style:** ask for factual summaries (e.g., _"What emails did I send or receive about [project] in [month]?"_), not evaluative questions (e.g., ~~"What impact did I have on [project]?"~~). The agent assesses impact from the raw evidence after retrieval.
 - **Date range:** the confirmed lookback period from Step 3.
 
 ### Positive Feedback and Recognition
@@ -884,21 +887,45 @@ Use the **`m365-evidence-search`** skill (`.github/skills/m365-evidence-search/S
 
 #### What to Search For
 
-Run month-by-month searches within the lookback period for:
+Run month-by-month searches within the lookback period. Use **neutral, factual queries** — ask WorkIQ what happened, not what was good or bad. WorkIQ returns better data with descriptive queries; all assessment happens afterward by the agent.
 
-- **Shared meetings** — meetings both attended; look for collaboration patterns, contributions, how they facilitated or participated
-- **Email threads** — threads involving both people; look for decision-making, responsiveness, clarity of communication
-- **Teams conversations** — chats and channel discussions both participated in; look for helpfulness, knowledge sharing, collaboration style
-- **Shared documents** — documents both worked on; look for contribution quality and collaboration patterns
+**Example queries (neutral):**
+- _"What meetings did I attend with [colleague name] in [month]? Summarize what was discussed."_
+- _"What emails did I exchange with [colleague name] in [month]? What topics and decisions were covered?"_
+- _"What Teams conversations did I have with [colleague name] in [month]?"_
+- _"What documents did I work on with [colleague name] in [month]?"_
+
+**Do NOT ask:**
+- ~~"What did [colleague] do well in January?"~~
+- ~~"What are [colleague]'s strengths based on our interactions?"~~
+- ~~"Where could [colleague] improve?"~~
+
+Search across:
+- **Shared meetings** — meetings both attended; capture what was discussed, who contributed what, decisions made
+- **Email threads** — threads involving both people; capture topics, decisions, responsiveness patterns
+- **Teams conversations** — chats and channel discussions both participated in; capture collaboration, knowledge sharing, discussions
+- **Shared documents** — documents both worked on; capture what was produced and contributed
 - **Projects and topics** — if the user specified focus areas, search specifically for those
 
 #### What to Extract
 
-For each interaction, note:
-- **What the colleague did** (observed behavior)
-- **The context** (what project, meeting, situation)
-- **The effect** (how it impacted the work, team, or user)
-- **Whether it suggests a strength or a growth area**
+For each interaction, capture **neutral facts only**:
+- **Date and channel** (when and where)
+- **What happened** (topic discussed, decision made, deliverable produced)
+- **Who did what** (the colleague's observable actions and contributions)
+- **Context** (what project, meeting, situation)
+
+**Do not tag items as strengths or growth areas during search.** Return a factual interaction log organized by month. The agent assesses themes in Step 4 after all evidence is gathered.
+
+### STEP 3b — ASSESS THEMES FROM EVIDENCE
+
+After gathering all interaction evidence, the agent (not WorkIQ) reviews the raw interaction log and identifies patterns:
+
+- **Strengths** — consistent positive behaviors observed across multiple interactions (e.g., always brought structure to ambiguous discussions, consistently followed through on commitments)
+- **Growth areas** — patterns where a different approach might have improved outcomes (e.g., meetings ran over time when they facilitated, stakeholder concerns sometimes went unaddressed)
+- **Valued qualities** — what made the collaboration effective or enjoyable
+
+This assessment is the agent's interpretation of the evidence. It is presented to the user for confirmation in Step 4 — the user is the final judge of what is fair and accurate.
 
 ### STEP 4 — PRESENT THEMES FOR USER CONFIRMATION
 

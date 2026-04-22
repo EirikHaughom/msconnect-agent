@@ -16,6 +16,7 @@ A structured, multi-pass methodology for exhaustively searching Microsoft 365 da
 3. **Run separate WorkIQ calls per month** when doing temporal searches — never ask for multi-month summaries in a single call.
 4. **Expect missing data.** Not all meetings have transcripts. Some evidence lives outside M365. Flag gaps explicitly rather than silently omitting them.
 5. **Parallelize** independent queries where possible.
+6. **Retrieve neutrally, assess afterward.** Ask WorkIQ for **factual interaction summaries** — what happened, who was involved, what was discussed, what was decided. Do NOT ask WorkIQ to evaluate, judge, or categorize evidence (e.g., don't ask "what did I do well" or "what are my strengths"). WorkIQ returns better results with neutral, descriptive queries. All assessment, impact framing, and theme identification happens **after retrieval** by the agent or calling skill.
 
 ## Search Passes
 
@@ -80,6 +81,7 @@ If any answer is "no" — rerun the relevant pass.
 
 ## Anti-Patterns to Avoid
 
+- ❌ Asking WorkIQ to **evaluate or judge** — don't ask "what did I do well", "what are my strengths", "what was impressive". Ask for factual summaries and assess afterward
 - ❌ Relying on a single broad question — always multi-pass
 - ❌ Filtering to only emails when Teams is often the richer source
 - ❌ Stopping at the first thread of a busy day (edited messages lurk later)
