@@ -113,10 +113,7 @@ Use the **country** returned from the role lookup (Step 1) to determine the user
 
 **For countries not listed:** ask WorkIQ for the user's location, infer the primary local language, and generate praise keywords in that language. English keywords are always included as a baseline.
 
-**How locale is applied:**
-1. **find-feedback skill** — Pass B uses the locale-specific praise keywords instead of a hardcoded Norwegian set
-2. **m365-evidence-search skill** — search terms include locale-language equivalents for key topics when the user works with local customers or partners
-3. **connect-writer skill** — all output is in English (Connect form is English), but evidence from non-English sources should be translated and the original language noted
+Pass the detected locale and keywords to the `find-feedback` and `m365-evidence-search` skills. All Connect output remains in English, but evidence from non-English sources should be translated and the original language noted.
 
 #### Role Family Reference
 
@@ -404,12 +401,7 @@ Search specifically for feedback, direction, and recognition from the user's dir
 
 Use the **`github-evidence-search`** skill (`.github/skills/github-evidence-search/SKILL.md`) to gather work-related GitHub contributions.
 
-Always ask the user if they want to include GitHub contributions as evidence, unless the user's prompt already references GitHub activity or explicitly asks to not include it. If the user confirms, the skill will:
-
-1. **Auto-detect work-related repos** (default) — scan the user's recent GitHub activity, classify repos as work/uncertain/personal, and present for confirmation. Or the user can provide repos manually.
-2. Gather PRs, code reviews, issues, commits, and discussions — month-by-month using GitHub MCP tools (with `gh` CLI as fallback).
-3. Map GitHub contributions to core priorities and role accountabilities.
-4. Frame as impact: what was shipped, what was unblocked, what was enabled — not raw commit counts.
+Always ask the user if they want to include GitHub contributions as evidence, unless the user's prompt already references GitHub activity or explicitly asks to not include it. If the user confirms, invoke the skill with the confirmed core priorities, role description, and lookback period. The skill handles repo discovery, data gathering, and impact framing.
 
 If the user does not mention GitHub, skip this step. Include a reminder in the "Missing Inputs" section that GitHub contributions may strengthen the evidence pack.
 
@@ -613,31 +605,15 @@ After the evidence pack is complete, use the **`connect-writer`** skill (`.githu
 - **On user request:** `plan` mode for future goals, or `full` mode for all 4 form fields.
 - **Inputs:** pass the evidence pack, curated selection, confirmed core priorities, confirmed role description, and previous Connect (if provided).
 
-The connect-writer produces two outputs:
-
-1. **Working draft** (`connect-draft.md`) — annotated with character counts, coverage summary, cut items, and placeholders. Used for review and iteration with the user.
-2. **Final paste-ready file** (`connect-final.md`) — clean file mirroring the exact Connect form structure. Contains only the text to paste — no metadata, no notes, no extras. Generated only after the user approves the working draft and all placeholders are resolved.
-
-The `connect-final.md` file is the deliverable — a single file the user opens and pastes section-by-section into the Connect form.
+The connect-writer skill handles output format, character limits, iteration, and final file generation. Refer to the skill for details on working draft vs. final paste-ready file structure.
 
 ### Optional Appendix: Feedback and Recognition Timeline
 
-Include a chronological timeline of all positive feedback, grouped by month. For each item:
-- Date, person, their role/organization
-- Channel (Email / Teams 1:1 / small group / channel / meeting chat)
-- **Verbatim quote** with high-signal phrases in **bold**
-- Context (what activity or topic it relates to)
-- Evidence type tag (Customer / Peer / Manager / Partner / External / Reputation signal)
-
-This appendix is supplementary evidence — not a Connect form section.
+Include a chronological timeline of all positive feedback — the `find-feedback` skill defines the output format. This appendix is supplementary evidence — not a Connect form section.
 
 ### Optional: HTML Recognition Timeline
 
-If the user requests an HTML version of the Feedback and Recognition Timeline, produce a single self-contained `.html` file with inlined CSS (no external assets, no JavaScript) that can be opened directly or printed to PDF. Structure as a visual timeline grouped by month with:
-- Color-coded evidence type tags
-- Verbatim quotes in styled blockquotes with high-signal phrases bolded
-- Summary pills showing total items, customer/partner count, internal count
-- Print-friendly styles via `@media print`
+If the user requests an HTML version, the `find-feedback` skill output can be formatted as a single self-contained `.html` file with inlined CSS (no external assets, no JavaScript) that can be opened directly or printed to PDF.
 
 ---
 
@@ -736,15 +712,11 @@ If any check fails, address it before presenting the final output.
 
 ## QUALITY RULES
 
+> Detailed quality rules, tone patterns, anti-patterns, and examples are defined in the `connect-writer` and `humanizer` skills. The following are **agent-level quality rules** that apply during evidence assessment and compilation — before the skills are invoked.
+
 ### Impact Over Activity
 
-Every bullet must answer "so what?" Lead with the outcome, not the task. Think headlines, not essays.
-
-| ❌ Activity | ✅ Impact-First Headline |
-|------------|----------|
-| Created a partner deck for Fabrikam | Co-launched Fabrikam Analytics agentic front-end, presented at E&R Spotlight to 50+ IAs, generating 3 new pipeline opportunities |
-| Met monthly with Contoso | Drove 2 joint development opportunities to pilot stage by maintaining Contoso executive relationship and aligning on industry AI use cases |
-| Enabled IAs on new solution area | Accelerated IA pipeline creation 15% by delivering targeted enablement to 40+ sellers across 3 TZ OUs |
+When assessing evidence, always frame it as impact, not activity. Every item must answer "so what?" This applies during Phase 3 compilation — the `humanizer` and `connect-writer` skills enforce this further during drafting.
 
 ### Culture Framing
 
@@ -758,42 +730,20 @@ Ground the "how" in Microsoft culture:
 - **Do not invent** metrics, timelines, or claims
 - If evidence is weak or missing, say so explicitly
 - Separate strong evidence from inferred or partial evidence
-- When possible, cite a short source trail for each claim
 
 ### Critical Metrics
 
-Certain metrics carry outsized weight in Connect reviews. If any of these appear in the evidence, they **must** be surfaced in the final output — never buried or omitted in favor of softer evidence.
-
-**Always surface when found:**
-
-| Category | Metrics |
-|----------|---------|
-| **Revenue & consumption** | ACR (Azure Consumed Revenue), ARR, MRR, revenue influenced, revenue closed, bookings |
-| **Pipeline** | Pipeline generated ($), pipeline influenced ($), stage 1/2/3 progression, win rate |
-| **Licensing & seats** | Copilot licenses/seats sold or enabled, M365 seats, GitHub seats, any per-seat expansion |
-| **Customer commitments** | MACC (Azure Consumption Commitments), contract value, renewal value, expansion deals |
-| **Partner influence** | PI ACR (Partner Influenced ACR), marketplace billed sales, co-sell deals, partner-sourced pipeline |
-| **Adoption & usage** | MAU/DAU, consumption growth %, feature adoption rate, deployment count |
-| **Customer satisfaction** | CSAT score, NPS, customer health score changes |
-| **Delivery milestones** | Features shipped to GA, incidents resolved (SEV 0/1), availability/uptime %, latency improvements |
-| **Enablement reach** | Audience size, sessions delivered, Seismic views/downloads, certifications driven |
-| **Market position** | Market share gain, analyst recognition, competitive wins |
+Certain metrics carry outsized weight in Connect reviews. If any of these appear in the evidence, they **must** be surfaced in the final output — never buried or omitted in favor of softer evidence. Use the role family "Quantify with" list from Step 1b to identify which metrics are expected for this user's role.
 
 **Rules:**
-- If a critical metric is found in the evidence pack, it must appear in at least one Connect-ready bullet — even if it means replacing a softer bullet to make room.
-- Include the actual number, not a vague reference ("drove $1.2M pipeline" not "drove significant pipeline").
-- If the metric is Partial confidence, include it with appropriate framing ("contributed to approximately $1.2M in pipeline") and flag for manual verification.
+- If a critical metric is found in the evidence pack, it must appear in at least one Connect-ready bullet.
+- Include the actual number, not a vague reference.
+- If the metric is Partial confidence, include it with appropriate framing and flag for manual verification.
 - If critical metrics are expected for the user's role family but none are found, flag this explicitly in Missing Inputs.
 
 ### Connect Form Constraints
 
-The final Connect form has these character limits — keep output compatible:
-- "What results did you deliver?" → **max 6000 characters**
-- "Reflect on recent setbacks" → **max 1000 characters**
-- Each future goal → **max 1200 characters**
-- "How will your actions help you reach goals?" → **max 1000 characters**
-
-Do not draft future goals unless explicitly asked (see Phase 4).
+> Character limits and form structure are defined in the `connect-writer` skill. The agent must pass these constraints to the skill and verify compliance in the pre-output checklist.
 
 ---
 
@@ -815,19 +765,16 @@ Do not draft future goals unless explicitly asked (see Phase 4).
 
 ## ANTI-PATTERNS TO AVOID
 
-> Detailed search anti-patterns are defined in the `m365-evidence-search` and `find-feedback` skills. The following are agent-level anti-patterns:
+> Detailed search anti-patterns are defined in the `m365-evidence-search` and `find-feedback` skills. Drafting anti-patterns are defined in the `humanizer`, `connect-writer`, and `perspective-writer` skills. The following are agent-level anti-patterns:
 
 - ❌ Skipping the role lookup — role accountabilities shape how evidence is evaluated
 - ❌ Starting evidence gathering before confirming core priorities with the user
-- ❌ Framing evidence as activity instead of impact
+- ❌ Asking WorkIQ evaluative questions — retrieve neutral facts, assess afterward
 - ❌ Inventing metrics or claims when evidence is weak — flag gaps instead
-- ❌ Paraphrasing feedback quotes — always verbatim (handled by `find-feedback` skill)
-- ❌ Ignoring Connect character limits when drafting final bullets
-- ❌ Asking for multi-month summaries in a single WorkIQ call — always month-by-month
 - ❌ Omitting Security/Quality/AI contributions — these are mandatory Connect themes
 - ❌ Fabricating setbacks when developmental evidence is thin — ask the user instead
-- ❌ Hardcoding role accountability headings instead of deriving from confirmed role
-- ❌ Skipping GitHub evidence when the user's prompt requests it
+- ❌ Mixing Connect and Perspectives workflow logic
+- ❌ Skipping the user curation gate before drafting
 
 ---
 
