@@ -922,7 +922,7 @@ For each interaction, capture **neutral facts only**:
 After gathering all interaction evidence, the agent (not WorkIQ) reviews the raw interaction log and identifies patterns:
 
 - **Strengths** — consistent positive behaviors observed across multiple interactions (e.g., always brought structure to ambiguous discussions, consistently followed through on commitments)
-- **Growth areas** — patterns where a different approach might have improved outcomes (e.g., meetings ran over time when they facilitated, stakeholder concerns sometimes went unaddressed)
+- **Growth areas** — **recurring patterns** or **significant behaviors** where a different approach might have improved outcomes. Only surface growth areas that are either (a) observed across multiple interactions or (b) important enough in a single instance to meaningfully warrant calling out. Do not surface one-off trivialities (e.g., missing a single meeting, a minor delay on one email).
 - **Valued qualities** — what made the collaboration effective or enjoyable
 
 This assessment is the agent's interpretation of the evidence. It is presented to the user for confirmation in Step 4 — the user is the final judge of what is fair and accurate.
