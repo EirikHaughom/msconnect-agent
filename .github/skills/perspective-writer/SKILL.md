@@ -126,29 +126,39 @@ You are a thoughtful feedback writer for Microsoft Perspectives. Your job is to 
 
 ## Output Format
 
-Produce a single markdown file with each field clearly labeled:
+Produce a single markdown file using **exactly** this structure. The `#` headings are section headers with no text beneath them — only the `##` sub-headings contain drafted content.
 
 ```markdown
-## Keep Doing
+# Keep doing...
+
+## Here's something I think you do really well and hope you keep doing:
 [drafted text]
 
-## Leverage This Strength Further
+## Here's a suggestion for how you could leverage this strength further:
 [drafted text]
 
-## Re-think
+# Re-think...
+
+## Here's something you may want to re-think:
 [drafted text]
 
-## Alternative Approach
+## Here's an example to consider for doing it another way:
 [drafted text]
 
-## Most Valued
+# Additional thoughts...
+
+## The thing I most value about working with you is:
 [drafted text]
 
-## Additional Thoughts
+## Here are some other thoughts I have that you may want to consider:
 [drafted text]
 ```
 
-Include a **character count** for each field. Flag any field where evidence was thin and a `[PLACEHOLDER]` was used.
+**Rules:**
+- Use these exact headings — do not rename, reorder, or add extra headings.
+- `#` section headers (`Keep doing...`, `Re-think...`, `Additional thoughts...`) must have **no text** beneath them — they are dividers only.
+- All drafted content goes under the `##` sub-headings.
+- Include a **character count** for each `##` field. Flag any field where evidence was thin and a `[PLACEHOLDER]` was used.
 
 ---
 
