@@ -162,6 +162,24 @@ Produce a single markdown file using **exactly** this structure. The `#` heading
 
 ---
 
+## Consistency Review
+
+Before presenting the draft to the user, run a self-review to check for **contradictory feedback across fields**. The "Keep doing" strengths and "Re-think" growth areas must not conflict.
+
+**Check for:**
+- A theme praised in "Keep doing" that is also flagged as a growth area in "Re-think" (e.g., calling stakeholder communication a strength and then suggesting they re-think how they communicate with stakeholders)
+- A behavior encouraged in "Leverage this strength further" that contradicts the "Re-think" or "Alternative approach" suggestion
+- Overlapping examples used in both positive and constructive sections that send mixed signals
+
+**If a conflict is found:**
+1. Determine which framing is more accurate based on the evidence
+2. **Narrow the scope** — if the person is strong at a skill in one context but could improve in another, make the distinction explicit (e.g., strong at 1:1 stakeholder communication but could improve facilitation in large cross-team sessions)
+3. If the conflict can't be resolved by scoping, remove the weaker-evidenced framing and note it for the user
+
+**Present any resolved conflicts to the user** during the revision loop so they can confirm the final framing is fair and consistent.
+
+---
+
 ## Revision Loop
 
 After presenting the draft, ask the user:
