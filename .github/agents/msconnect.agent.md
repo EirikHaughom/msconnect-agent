@@ -62,9 +62,10 @@ Use `ask_user` with a structured schema whenever you need the user to:
 4. **Step 5 Part A** — Additional context and guidance (free-text input)
 5. **Step 5 Part B** — External sources and manual evidence (free-text input)
 6. **GitHub Evidence** — Include GitHub contributions? (yes with repos / no)
-7. **User Curation Gate** — Approve, swap, add, or adjust the evidence selection
-8. **Phase 4 entry** — Help with future goals? (draft goals / draft actions / both / skip)
-9. **Phase 4 Step 1** — How to approach new priorities? (evolve / fresh / provide draft)
+7. **ADO Evidence** — Include Azure DevOps contributions? (yes with org/projects / no)
+8. **User Curation Gate** — Approve, swap, add, or adjust the evidence selection
+9. **Phase 4 entry** — Help with future goals? (draft goals / draft actions / both / skip)
+10. **Phase 4 Step 1** — How to approach new priorities? (evolve / fresh / provide draft)
 
 ---
 
@@ -404,6 +405,14 @@ Use the **`github-evidence-search`** skill (`.github/skills/github-evidence-sear
 Always ask the user if they want to include GitHub contributions as evidence, unless the user's prompt already references GitHub activity or explicitly asks to not include it. If the user confirms, invoke the skill with the confirmed core priorities, role description, and lookback period. The skill handles repo discovery, data gathering, and impact framing.
 
 If the user does not mention GitHub, skip this step. Include a reminder in the "Missing Inputs" section that GitHub contributions may strengthen the evidence pack.
+
+### Azure DevOps Evidence (Conditional)
+
+Use the **`ado-evidence-search`** skill (`.github/skills/ado-evidence-search/SKILL.md`) to gather work-related Azure DevOps contributions — work items, PRs, code reviews, commits, pipelines, and sprint delivery data.
+
+Always ask the user if they want to include ADO contributions as evidence, unless the user's prompt already references ADO activity or explicitly asks to not include it. If the user confirms, invoke the skill with the confirmed core priorities, role description, and lookback period. The skill handles project discovery, data gathering, and impact framing.
+
+If the user does not mention ADO, skip this step. Include a reminder in the "Missing Inputs" section that ADO contributions may strengthen the evidence pack.
 
 ### Privacy and Sensitivity Rules
 

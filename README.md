@@ -75,6 +75,7 @@ The agent first asks which workflow you need (Connect or Perspectives), then gui
 | **Additional Context** | Key projects, manager guidance, or emphasis areas |
 | **External Sources** | Links, metrics, or evidence from systems the agent can't search |
 | **GitHub Repos** | Whether to include GitHub contributions and which repos |
+| **ADO Projects** | Whether to include Azure DevOps contributions and which org/projects |
 | **Evidence Curation** | Review and approve the selected evidence before drafting |
 
 #### Perspectives
@@ -116,6 +117,7 @@ The agent first asks which workflow you need (Connect or Perspectives), then gui
 ├── agents/
 │   └── msconnect.agent.md        # Main agent definition (Connect + Perspectives)
 └── skills/
+    ├── ado-evidence-search/SKILL.md   # Gathers Azure DevOps contributions
     ├── connect-writer/SKILL.md   # Drafts paste-ready Connect form text
     ├── find-feedback/SKILL.md    # Finds positive feedback across M365
     ├── github-evidence-search/SKILL.md  # Gathers GitHub contributions
