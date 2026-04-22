@@ -88,13 +88,19 @@ The agent first asks which workflow you need (Connect or Perspectives), then gui
 
 ### Output
 
-The agent produces files in an output folder (e.g., `FY26H2/output/`):
+**Connect** — files are saved to `connects/<FY-period>/` (e.g., `connects/FY26H2/`):
 
 | File | Description |
 |------|-------------|
 | `evidence-pack.md` | Full evidence pack with source trails, confidence scores, and mappings |
 | `connect-draft.md` | Working draft with character counts and coverage notes |
 | `connect-final.md` | **The deliverable** — clean, paste-ready text for each Connect form field |
+
+**Perspectives** — files are saved to `perspectives/<colleague-name>/` (e.g., `perspectives/jane-doe/`):
+
+| File | Description |
+|------|-------------|
+| `perspective.md` | **The deliverable** — paste-ready text for all 6 Perspective fields |
 
 ### Tips
 

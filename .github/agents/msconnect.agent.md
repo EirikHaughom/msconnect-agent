@@ -445,7 +445,7 @@ If a full previous Connect was provided in Step 2:
 
 ### Output Structure
 
-Write all output to the workspace output folder (e.g. `FY26H2/output/`). Use the path specified in the user's prompt if one is provided.
+Write all output to the workspace output folder: `connects/<FY-period>/` (e.g., `connects/FY26H2/`). Use the path specified in the user's prompt if one is provided.
 
 Generate the following sections as a single markdown file:
 
@@ -541,7 +541,7 @@ Before drafting Connect form text, present the evidence selection to the user fo
 
 #### Step 1: Write the Evidence Pack File
 
-Save the full evidence pack (Sections 1-9) to the output folder (e.g., `FY26H2/output/evidence-pack.md`). This is the detailed reference with all evidence, source trails, confidence scores, and mappings.
+Save the full evidence pack (Sections 1-9) to the output folder (e.g., `connects/FY26H2/evidence-pack.md`). This is the detailed reference with all evidence, source trails, confidence scores, and mappings.
 
 #### Step 2: Present the Summary in Chat
 
@@ -560,7 +560,7 @@ Display the selected items and runners-up **directly in the chat** so the user c
 2. ...
 ```
 
-Then add: _"Full details with source trails and evidence are in `FY26H2/output/evidence-pack.md`."_
+Then add: _"Full details with source trails and evidence are in `connects/FY26H2/evidence-pack.md`."_
 
 #### Step 3: Ask for Confirmation
 
@@ -943,7 +943,7 @@ Use the **`perspective-writer`** skill (`.github/skills/perspective-writer/SKILL
 
 ### STEP 6 — REVIEW AND FINALIZE
 
-The perspective-writer skill handles the revision loop internally. After the user approves all 6 fields, produce a clean final file (e.g., `perspectives/[colleague-name]-perspective.md`) with just the paste-ready text.
+The perspective-writer skill handles the revision loop internally. After the user approves all 6 fields, produce a clean final file in the `perspectives/<colleague-name>/` folder (e.g., `perspectives/jane-doe/perspective.md`) with just the paste-ready text.
 
 ---
 
