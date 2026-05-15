@@ -1,4 +1,4 @@
-# MS Connect Assistant
+# MS Connect & Perspectives Assistant
 
 A GitHub Copilot agent that helps Microsoft employees with two workflows:
 
