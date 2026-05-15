@@ -46,10 +46,13 @@ flowchart TB
     subgraph P3[Phase 3 — Compile & Draft]
         direction LR
         CON[Consolidate &\ndeduplicate] --> MAP[Map to priorities\n& accountabilities]
-        MAP --> EP[Generate\nevidence pack]
+        MAP --> KPI[Surface missing\nKPIs & metrics]
+        KPI --> EP[Generate\nevidence pack]
         EP --> CUR[User curation\ngate]
-        CUR --> MET[Prompt for\nmissing metrics]
-        MET --> DFT[Draft Connect text\nwriter + humanizer]
+        CUR --> DKPI{New items\nadded?}
+        DKPI -->|Yes| DMET[Delta KPI check\nfor new items]
+        DKPI -->|No| DFT
+        DMET --> DFT[Draft Connect text\nwriter + humanizer]
         DFT --> REV{User\nreviews}
         REV -->|Revise| DFT
         REV -->|Approve| FIN[Generate\nconnect-final.md]

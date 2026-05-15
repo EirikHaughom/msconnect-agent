@@ -447,6 +447,59 @@ If a full previous Connect was provided in Step 2:
 - **Show progression:** for prior goals that now have delivery evidence, explicitly note the link ("Committed to X in FY26H1 → delivered Y in FY26H2").
 - **Highlight new themes:** call out accomplishments and impact areas that are entirely new since the last Connect — these demonstrate growth in scope.
 
+### KPI Enrichment Pass
+
+After consolidation and mapping — but **before generating the evidence pack** — scan every mapped evidence item for missing quantifiable metrics. Surfacing KPIs at this stage ensures impact rankings in the evidence pack reflect true impact rather than penalizing items that simply lack a number.
+
+**Why this matters:** Items without metrics appear weaker during ranking and curation, which can cause truly impactful work to be ranked lower or excluded. Collecting KPIs before the evidence pack is generated corrects this bias.
+
+#### Scope — which items to ask about
+
+Do not ask about every item. Focus the metric ask on items most likely to move the needle:
+
+1. **Items tied to explicit core priority success criteria** — if the user's core priorities define specific KPIs (e.g., ">150 combined views", "≥2 joint development opportunities", "$X pipeline"), and the evidence lacks those numbers, ask for the actuals first.
+2. **Top candidate items** — high-confidence evidence that maps to priorities but has no quantified outcome.
+3. **Items where a metric would materially change impact ranking** — e.g., a partner project with no revenue figure attached.
+
+Leave low-value, overflow, or clearly qualitative items for Missing Inputs (Section 8). Do not overwhelm the user.
+
+#### Metric priority order
+
+For each item that needs a metric, suggest the most relevant metric type using this precedence:
+
+1. **Core priority KPIs** — if the priority defines success criteria with specific measures (e.g., ">150 combined views", "pipeline generated ($)"), ask for the actual number achieved against that target. This is the highest-priority metric source because it directly measures what the user committed to deliver.
+2. **Role family "Quantify with" metrics** — use the list from Step 1b for the user's role family (e.g., ACR, pipeline $, deals closed for Sales; features shipped, bugs fixed, latency improvement for Engineering). These are the metrics managers and reviewers expect to see.
+3. **Impact-class fallback metrics** — if nothing from the above applies, suggest meaningful metrics from these impact classes: revenue, savings, time reduction, reach/adoption, reliability, quality, or customer outcomes. Be specific to the work item (e.g., "How many attendees at the enablement session?", "What was the adoption rate after launch?", "How much pipeline did the partner GTM generate?").
+
+**Do not suggest vanity metrics.** Every suggested metric should answer "so what?" — it must connect to business, customer, or team impact.
+
+#### Presentation
+
+Present the ask as a grouped table so the user can fill in what they know:
+
+> _"Before I generate the evidence pack, I want to make sure impact is accurately captured. Some items are missing metrics that could significantly strengthen their ranking. Can you provide numbers for any of these? Skip any you don't have — I'll note them in the Missing Inputs section."_
+>
+> | # | Evidence Item | Metric Source | Suggested Metric | Your Value |
+> |---|--------------|---------------|-----------------|------------|
+> | 1 | [Project/accomplishment] | Core Priority KPI | [e.g., Combined views (target: >150)] | _fill in_ |
+> | 2 | [Project/accomplishment] | Role Family | [e.g., ACR influenced ($)] | _fill in_ |
+> | 3 | [Project/accomplishment] | Impact Class | [e.g., Enablement session attendees (#)] | _fill in_ |
+> | ...| | | | |
+
+The **Metric Source** column shows why this metric is being asked for, helping the user understand priority.
+
+#### Handling responses
+
+For each metric the user provides:
+- **Exact values** → incorporate at **Strong** confidence. Cite source as "User-provided".
+- **Approximate/estimated values** → incorporate at **Partial** confidence. Cite source as "User-provided (estimated)" and flag for verification.
+
+If the user skips a metric, leave the item as-is and include it in Missing Inputs (Section 8) with a specific suggestion of where to find the number (e.g., "Check MSX for the Contoso pipeline value", "Pull Seismic analytics for the hero deck views").
+
+#### Re-rank after enrichment
+
+After incorporating user-provided metrics, **re-evaluate impact rankings** before generating the evidence pack. Items that gained concrete metrics may now outrank previously higher-ranked items. This re-ranking ensures the evidence pack and curation gate present the most accurate picture of impact.
+
 ### Output Structure
 
 Write all output to the workspace output folder: `connects/<FY-period>/` (e.g., `connects/FY26H2/`). Use the path specified in the user's prompt if one is provided.
@@ -519,7 +572,8 @@ _Target: all bullets together fit within 6000 characters when finalized for Conn
 List the specific metrics, examples, names, or context that would most strengthen the final Connect. Be actionable — tell the user exactly what to look up or ask for.
 
 Include:
-- **Unquantified evidence** — items where the user was asked for metrics (Step 4 of User Curation Gate) but couldn't provide them. For each, suggest where to find the number (e.g., "Check MSX for the Contoso pipeline value", "Pull Seismic analytics for the hero deck views")
+- **Unquantified evidence** — items where the user was asked for metrics during the **KPI Enrichment Pass** (pre-pack) or the **Delta KPI Check** (post-curation) but couldn't provide them. For each, suggest where to find the number (e.g., "Check MSX for the Contoso pipeline value", "Pull Seismic analytics for the hero deck views")
+- **Core priority KPIs with no actuals** — success criteria defined in the user's priorities that have no evidence of achievement yet
 - Missing Security/Quality/AI evidence if not found
 - GitHub contributions if not yet gathered
 - Setbacks if user input is needed
@@ -580,31 +634,32 @@ If the user adds new items, incorporate them at the appropriate confidence level
 
 **Do not proceed to the connect-writer skill until the user confirms the selection.**
 
-#### Step 4: Prompt for Missing Metrics
+#### Step 4: Delta KPI Check for Newly Added Items
 
-After the user confirms the evidence selection, review every selected item for quantifiable metrics. For any item that lacks a concrete number (revenue, ACR, pipeline, customer count, adoption %, views, etc.), **proactively ask the user** using an interactive prompt.
+If the user added new items or promoted runners-up during Step 3, check **only those newly added/promoted items** for missing metrics. Items carried over from the pre-pack KPI enrichment pass already had their chance — do not re-ask.
 
-Derive suggested metric types from:
-- **Core priority KPIs** — if the priority defines success criteria with specific measures (e.g., ">150 combined views", "≥2 joint development opportunities"), ask for the actual numbers achieved
-- **Role family metrics** — use the "Quantify with" list from Step 1b (e.g., ACR, pipeline $, deals closed, features shipped)
-- **Common business metrics** — revenue influenced, cost saved, time reduced, users impacted, sessions delivered, attendees reached
+For each new item missing a quantifiable metric, apply the same metric priority order as the KPI Enrichment Pass:
+1. **Core priority KPIs** — success criteria from the user's priorities
+2. **Role family metrics** — "Quantify with" list from Step 1b
+3. **Impact-class fallback** — revenue, savings, reach, adoption, quality, customer outcomes
 
-Present the ask as a grouped list so the user can fill in what they know:
+Present a brief ask:
 
-> _"Some evidence items don't have metrics yet. Can you provide numbers for any of these? Skip any you don't have — I'll note them as unquantified."_
+> _"You added some new items. Can you provide metrics for any of these?"_
 >
-> | # | Evidence Item | Suggested Metric | Your Value |
-> |---|--------------|-----------------|------------|
+> | # | New Item | Suggested Metric | Your Value |
+> |---|---------|-----------------|------------|
 > | 1 | [Project/accomplishment] | [e.g., Pipeline generated ($)] | _fill in_ |
-> | 2 | [Project/accomplishment] | [e.g., ACR influenced ($)] | _fill in_ |
 > | ...| | | |
 
 For each metric the user provides:
-- Incorporate at **Strong** confidence (user-provided = first-person source of truth)
-- Cite the source as "User-provided" in the evidence trail
-- Update the Metrics and Proof Points Table (Section 5)
+- **Exact values** → incorporate at **Strong** confidence. Cite source as "User-provided".
+- **Approximate values** → incorporate at **Partial** confidence. Cite source as "User-provided (estimated)".
+- Update the Metrics and Proof Points Table (Section 5).
 
-If the user skips a metric, leave the item as-is and flag it in Missing Inputs (Section 8) with a specific suggestion of where to find the number (e.g., "Check MSX for pipeline value" or "Look up Seismic views for the hero deck").
+If metrics materially change impact, re-rank affected items before proceeding to drafting.
+
+If no new items were added in Step 3, skip this step entirely.
 
 ### Drafting Connect Form Text
 
